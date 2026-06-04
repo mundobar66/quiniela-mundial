@@ -26,7 +26,6 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .rule-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
 .rule-row:last-child{border-bottom:none}
 .rule-pts{background:var(--verde-light);color:var(--verde-dark);font-weight:600;font-size:13px;padding:4px 12px;border-radius:20px;white-space:nowrap;min-width:80px;text-align:center}
-.rule-text{font-size:14px;color:var(--text)}
 .input-group{margin-bottom:12px}
 .input-group label{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);display:block;margin-bottom:6px}
 .input-group input{width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-family:'Outfit',sans-serif;font-size:15px;color:var(--text);background:#fafafa;transition:border .2s}
@@ -59,12 +58,35 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .alert.ok{background:#E1F5EE;color:#0F6E56}
 .alert.err{background:#fef2f2;color:#991b1b}
 .sending{background:#fff8f0;color:#854F0B;border-radius:10px;padding:10px 14px;font-size:13px;font-weight:600;margin-top:10px;display:none;text-align:center}
+/* RANKING */
 .rank-row{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:12px 16px;margin-bottom:10px}
 .pos-badge{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0}
 .p1{background:#FAC775;color:#412402}.p2{background:#D3D1C7;color:#2C2C2A}.p3{background:#F0997B;color:#4A1B0C}.pn{background:#f0f0f0;color:#666}
 .rank-name{flex:1;font-size:15px;font-weight:600}
 .rank-pts{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--verde)}
 .rank-pts-label{font-size:11px;color:var(--muted);font-weight:500}
+/* ADMIN */
+.admin-login{background:var(--card);border-radius:var(--radius);border:1px solid var(--border);padding:1.5rem;margin-bottom:14px;text-align:center}
+.admin-panel{display:none}
+.admin-header{background:#0a2e1f;color:#fff;border-radius:var(--radius);padding:1rem 1.25rem;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between}
+.admin-header h2{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px}
+.mode-tabs{display:flex;gap:8px;margin-bottom:16px}
+.mode-tab{flex:1;padding:10px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;border:1.5px solid var(--border);border-radius:10px;background:#fafafa;color:var(--muted);cursor:pointer;transition:all .2s;text-align:center}
+.mode-tab.active{background:var(--verde);color:#fff;border-color:var(--verde)}
+.mode-section{display:none}.mode-section.active{display:block}
+.result-item{background:var(--card);border:1px solid var(--border);border-top:none;padding:8px 14px;display:flex;align-items:center;gap:8px}
+.result-item:last-child{border-radius:0 0 8px 8px}
+.result-inp{width:40px;height:34px;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:18px;border:1.5px solid var(--border);border-radius:7px;background:#fafafa;color:var(--text);-moz-appearance:textfield}
+.result-inp::-webkit-inner-spin-button,.result-inp::-webkit-outer-spin-button{-webkit-appearance:none}
+.result-inp:focus{outline:none;border-color:#FAC775;background:#fff}
+.result-inp.filled{border-color:var(--verde);background:var(--verde-light)}
+.group-selector{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:16px}
+.g-btn{padding:8px 4px;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px;border:1.5px solid var(--border);border-radius:8px;background:#fafafa;color:var(--text);cursor:pointer;text-align:center;transition:all .15s}
+.g-btn:hover{border-color:var(--verde)}
+.g-btn.active{background:var(--verde);color:#fff;border-color:var(--verde)}
+.g-btn.done{background:var(--verde-light);color:var(--verde-dark);border-color:var(--verde)}
+.save-banner{background:#E1F5EE;color:#0F6E56;border-radius:10px;padding:10px 14px;font-size:13px;font-weight:600;margin-top:10px;display:none;text-align:center}
+.quinielas-count{font-size:13px;color:var(--muted);margin-bottom:12px}
 .footer{text-align:center;padding:1.5rem;font-size:12px;color:var(--muted)}
 </style>
 </head>
@@ -81,6 +103,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
     <button class="tab active" onclick="showTab('reglas')">📋 Reglas</button>
     <button class="tab" onclick="showTab('quiniela')">✏️ Mi quiniela</button>
     <button class="tab" onclick="showTab('ranking')">🏆 Ranking</button>
+    <button class="tab" onclick="showTab('admin')">⚙️</button>
   </div>
 </div>
 
@@ -90,14 +113,14 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
   <div id="tab-reglas" class="section active">
     <div class="card">
       <div class="card-title">⚡ Sistema de puntos</div>
-      <div class="rule-row"><span class="rule-pts">3 puntos</span><span class="rule-text">Marcador exacto (ej: 2-1)</span></div>
-      <div class="rule-row"><span class="rule-pts">1 punto</span><span class="rule-text">Solo aciertas el ganador o empate</span></div>
-      <div class="rule-row"><span class="rule-pts">+5 puntos</span><span class="rule-text">Aciertas el campeón del Mundial</span></div>
-      <div class="rule-row"><span class="rule-pts" style="background:#fef2f2;color:#991b1b">0 puntos</span><span class="rule-text">Fallo total</span></div>
+      <div class="rule-row"><span class="rule-pts">3 puntos</span><span style="font-size:14px">Marcador exacto (ej: 2-1)</span></div>
+      <div class="rule-row"><span class="rule-pts">1 punto</span><span style="font-size:14px">Solo aciertas el ganador o empate</span></div>
+      <div class="rule-row"><span class="rule-pts">+5 puntos</span><span style="font-size:14px">Aciertas el campeón del Mundial</span></div>
+      <div class="rule-row"><span class="rule-pts" style="background:#fef2f2;color:#991b1b">0 puntos</span><span style="font-size:14px">Fallo total</span></div>
     </div>
     <div class="card">
       <div class="card-title">📌 Cómo participar</div>
-      <p style="font-size:14px;color:var(--muted);line-height:1.8">1. Ve a <strong style="color:var(--text)">Mi quiniela</strong>, escribe tu nombre y teléfono.<br><br>2. Rellena los marcadores que quieras pronosticar.<br><br>3. Elige tu campeón favorito.<br><br>4. Pulsa <strong style="color:var(--text)">Guardar</strong> — tus datos se registran automáticamente y se genera un texto para pegar en Facebook.<br><br>5. ¡Cierre de quinielas antes del primer partido (11 jun)!</p>
+      <p style="font-size:14px;color:var(--muted);line-height:1.8">1. Ve a <strong style="color:var(--text)">Mi quiniela</strong>, escribe tu nombre y teléfono.<br>2. Rellena los marcadores que quieras pronosticar.<br>3. Elige tu campeón favorito.<br>4. Pulsa <strong style="color:var(--text)">Guardar</strong> — tus datos quedan registrados.<br>5. ¡Cierre de quinielas antes del primer partido (11 jun)!</p>
     </div>
     <button class="btn-main" onclick="showTab('quiniela')">Rellenar mi quiniela →</button>
   </div>
@@ -105,19 +128,10 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
   <!-- QUINIELA -->
   <div id="tab-quiniela" class="section">
     <div class="card">
-      <div class="input-group">
-        <label>Tu nombre</label>
-        <input type="text" id="player-name" placeholder="Ej: Carlos García...">
-      </div>
-      <div class="input-group" style="margin-bottom:0">
-        <label>Teléfono / WhatsApp</label>
-        <input type="tel" id="player-phone" placeholder="Ej: 612 345 678">
-      </div>
+      <div class="input-group"><label>Tu nombre</label><input type="text" id="player-name" placeholder="Ej: Carlos García..."></div>
+      <div class="input-group" style="margin-bottom:0"><label>Teléfono / WhatsApp</label><input type="tel" id="player-phone" placeholder="Ej: 612 345 678"></div>
     </div>
-
-    <!-- GRUPO A -->
-    <div class="group-block">
-      <span class="group-label">GRUPO A — México · Sudáfrica · Corea del Sur · Chequia</span>
+    <div class="group-block"><span class="group-label">GRUPO A — México · Sudáfrica · Corea del Sur · Chequia</span>
       <div class="match-item"><span class="team-name right">🇲🇽 México</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="A1a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="A1b" placeholder="0"></div><span class="team-name">🇿🇦 Sudáfrica</span></div>
       <div class="match-item"><span class="team-name right">🇰🇷 Corea del Sur</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="A2a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="A2b" placeholder="0"></div><span class="team-name">🇨🇿 Chequia</span></div>
       <div class="match-item"><span class="team-name right">🇲🇽 México</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="A3a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="A3b" placeholder="0"></div><span class="team-name">🇰🇷 Corea del Sur</span></div>
@@ -125,8 +139,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
       <div class="match-item"><span class="team-name right">🇲🇽 México</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="A5a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="A5b" placeholder="0"></div><span class="team-name">🇨🇿 Chequia</span></div>
       <div class="match-item"><span class="team-name right">🇿🇦 Sudáfrica</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="A6a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="A6b" placeholder="0"></div><span class="team-name">🇰🇷 Corea del Sur</span></div>
     </div>
-    <div class="group-block">
-      <span class="group-label">GRUPO B — Canadá · Qatar · Suiza · Bosnia</span>
+    <div class="group-block"><span class="group-label">GRUPO B — Canadá · Qatar · Suiza · Bosnia</span>
       <div class="match-item"><span class="team-name right">🇨🇦 Canadá</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="B1a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="B1b" placeholder="0"></div><span class="team-name">🇶🇦 Qatar</span></div>
       <div class="match-item"><span class="team-name right">🇨🇭 Suiza</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="B2a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="B2b" placeholder="0"></div><span class="team-name">🇧🇦 Bosnia</span></div>
       <div class="match-item"><span class="team-name right">🇨🇦 Canadá</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="B3a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="B3b" placeholder="0"></div><span class="team-name">🇨🇭 Suiza</span></div>
@@ -134,8 +147,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
       <div class="match-item"><span class="team-name right">🇨🇦 Canadá</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="B5a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="B5b" placeholder="0"></div><span class="team-name">🇧🇦 Bosnia</span></div>
       <div class="match-item"><span class="team-name right">🇶🇦 Qatar</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="B6a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="B6b" placeholder="0"></div><span class="team-name">🇨🇭 Suiza</span></div>
     </div>
-    <div class="group-block">
-      <span class="group-label">GRUPO C — Brasil · Marruecos · Haití · Escocia</span>
+    <div class="group-block"><span class="group-label">GRUPO C — Brasil · Marruecos · Haití · Escocia</span>
       <div class="match-item"><span class="team-name right">🇧🇷 Brasil</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="C1a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="C1b" placeholder="0"></div><span class="team-name">🇲🇦 Marruecos</span></div>
       <div class="match-item"><span class="team-name right">🇭🇹 Haití</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="C2a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="C2b" placeholder="0"></div><span class="team-name">🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escocia</span></div>
       <div class="match-item"><span class="team-name right">🇧🇷 Brasil</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="C3a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="C3b" placeholder="0"></div><span class="team-name">🇭🇹 Haití</span></div>
@@ -143,8 +155,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
       <div class="match-item"><span class="team-name right">🇧🇷 Brasil</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="C5a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="C5b" placeholder="0"></div><span class="team-name">🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escocia</span></div>
       <div class="match-item"><span class="team-name right">🇲🇦 Marruecos</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="C6a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="C6b" placeholder="0"></div><span class="team-name">🇭🇹 Haití</span></div>
     </div>
-    <div class="group-block">
-      <span class="group-label">GRUPO D — EE.UU. · Paraguay · Australia · Turquía</span>
+    <div class="group-block"><span class="group-label">GRUPO D — EE.UU. · Paraguay · Australia · Turquía</span>
       <div class="match-item"><span class="team-name right">🇺🇸 EE.UU.</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="D1a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="D1b" placeholder="0"></div><span class="team-name">🇵🇾 Paraguay</span></div>
       <div class="match-item"><span class="team-name right">🇦🇺 Australia</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="D2a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="D2b" placeholder="0"></div><span class="team-name">🇹🇷 Turquía</span></div>
       <div class="match-item"><span class="team-name right">🇺🇸 EE.UU.</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="D3a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="D3b" placeholder="0"></div><span class="team-name">🇦🇺 Australia</span></div>
@@ -152,44 +163,39 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
       <div class="match-item"><span class="team-name right">🇺🇸 EE.UU.</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="D5a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="D5b" placeholder="0"></div><span class="team-name">🇹🇷 Turquía</span></div>
       <div class="match-item"><span class="team-name right">🇵🇾 Paraguay</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="D6a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="D6b" placeholder="0"></div><span class="team-name">🇦🇺 Australia</span></div>
     </div>
-    <div class="group-block">
-      <span class="group-label">GRUPO E — Alemania · Curazao · Costa de Marfil · Ecuador</span>
+    <div class="group-block"><span class="group-label">GRUPO E — Alemania · Curazao · C.Marfil · Ecuador</span>
       <div class="match-item"><span class="team-name right">🇩🇪 Alemania</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="E1a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="E1b" placeholder="0"></div><span class="team-name">🇨🇼 Curazao</span></div>
-      <div class="match-item"><span class="team-name right">🇨🇮 C. Marfil</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="E2a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="E2b" placeholder="0"></div><span class="team-name">🇪🇨 Ecuador</span></div>
-      <div class="match-item"><span class="team-name right">🇩🇪 Alemania</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="E3a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="E3b" placeholder="0"></div><span class="team-name">🇨🇮 C. Marfil</span></div>
+      <div class="match-item"><span class="team-name right">🇨🇮 C.Marfil</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="E2a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="E2b" placeholder="0"></div><span class="team-name">🇪🇨 Ecuador</span></div>
+      <div class="match-item"><span class="team-name right">🇩🇪 Alemania</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="E3a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="E3b" placeholder="0"></div><span class="team-name">🇨🇮 C.Marfil</span></div>
       <div class="match-item"><span class="team-name right">🇨🇼 Curazao</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="E4a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="E4b" placeholder="0"></div><span class="team-name">🇪🇨 Ecuador</span></div>
       <div class="match-item"><span class="team-name right">🇩🇪 Alemania</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="E5a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="E5b" placeholder="0"></div><span class="team-name">🇪🇨 Ecuador</span></div>
-      <div class="match-item"><span class="team-name right">🇨🇼 Curazao</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="E6a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="E6b" placeholder="0"></div><span class="team-name">🇨🇮 C. Marfil</span></div>
+      <div class="match-item"><span class="team-name right">🇨🇼 Curazao</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="E6a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="E6b" placeholder="0"></div><span class="team-name">🇨🇮 C.Marfil</span></div>
     </div>
-    <div class="group-block">
-      <span class="group-label">GRUPO F — Países Bajos · Japón · Túnez · Suecia</span>
-      <div class="match-item"><span class="team-name right">🇳🇱 Países Bajos</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="F1a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="F1b" placeholder="0"></div><span class="team-name">🇯🇵 Japón</span></div>
+    <div class="group-block"><span class="group-label">GRUPO F — Países Bajos · Japón · Túnez · Suecia</span>
+      <div class="match-item"><span class="team-name right">🇳🇱 P.Bajos</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="F1a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="F1b" placeholder="0"></div><span class="team-name">🇯🇵 Japón</span></div>
       <div class="match-item"><span class="team-name right">🇹🇳 Túnez</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="F2a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="F2b" placeholder="0"></div><span class="team-name">🇸🇪 Suecia</span></div>
-      <div class="match-item"><span class="team-name right">🇳🇱 Países Bajos</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="F3a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="F3b" placeholder="0"></div><span class="team-name">🇹🇳 Túnez</span></div>
+      <div class="match-item"><span class="team-name right">🇳🇱 P.Bajos</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="F3a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="F3b" placeholder="0"></div><span class="team-name">🇹🇳 Túnez</span></div>
       <div class="match-item"><span class="team-name right">🇯🇵 Japón</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="F4a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="F4b" placeholder="0"></div><span class="team-name">🇸🇪 Suecia</span></div>
-      <div class="match-item"><span class="team-name right">🇳🇱 Países Bajos</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="F5a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="F5b" placeholder="0"></div><span class="team-name">🇸🇪 Suecia</span></div>
+      <div class="match-item"><span class="team-name right">🇳🇱 P.Bajos</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="F5a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="F5b" placeholder="0"></div><span class="team-name">🇸🇪 Suecia</span></div>
       <div class="match-item"><span class="team-name right">🇯🇵 Japón</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="F6a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="F6b" placeholder="0"></div><span class="team-name">🇹🇳 Túnez</span></div>
     </div>
-    <div class="group-block">
-      <span class="group-label">GRUPO G — Bélgica · Egipto · Irán · Nueva Zelanda</span>
+    <div class="group-block"><span class="group-label">GRUPO G — Bélgica · Egipto · Irán · Nueva Zelanda</span>
       <div class="match-item"><span class="team-name right">🇧🇪 Bélgica</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="G1a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="G1b" placeholder="0"></div><span class="team-name">🇪🇬 Egipto</span></div>
-      <div class="match-item"><span class="team-name right">🇮🇷 Irán</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="G2a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="G2b" placeholder="0"></div><span class="team-name">🇳🇿 Nueva Zelanda</span></div>
+      <div class="match-item"><span class="team-name right">🇮🇷 Irán</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="G2a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="G2b" placeholder="0"></div><span class="team-name">🇳🇿 N.Zelanda</span></div>
       <div class="match-item"><span class="team-name right">🇧🇪 Bélgica</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="G3a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="G3b" placeholder="0"></div><span class="team-name">🇮🇷 Irán</span></div>
-      <div class="match-item"><span class="team-name right">🇪🇬 Egipto</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="G4a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="G4b" placeholder="0"></div><span class="team-name">🇳🇿 Nueva Zelanda</span></div>
-      <div class="match-item"><span class="team-name right">🇧🇪 Bélgica</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="G5a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="G5b" placeholder="0"></div><span class="team-name">🇳🇿 Nueva Zelanda</span></div>
+      <div class="match-item"><span class="team-name right">🇪🇬 Egipto</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="G4a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="G4b" placeholder="0"></div><span class="team-name">🇳🇿 N.Zelanda</span></div>
+      <div class="match-item"><span class="team-name right">🇧🇪 Bélgica</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="G5a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="G5b" placeholder="0"></div><span class="team-name">🇳🇿 N.Zelanda</span></div>
       <div class="match-item"><span class="team-name right">🇪🇬 Egipto</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="G6a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="G6b" placeholder="0"></div><span class="team-name">🇮🇷 Irán</span></div>
     </div>
-    <div class="group-block">
-      <span class="group-label">GRUPO H — España · Cabo Verde · Arabia Saudita · Uruguay</span>
+    <div class="group-block"><span class="group-label">GRUPO H — España · Cabo Verde · Arabia Saudita · Uruguay</span>
       <div class="match-item"><span class="team-name right">🇪🇸 España</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="H1a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="H1b" placeholder="0"></div><span class="team-name">🇨🇻 Cabo Verde</span></div>
-      <div class="match-item"><span class="team-name right">🇸🇦 Arabia Saudita</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="H2a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="H2b" placeholder="0"></div><span class="team-name">🇺🇾 Uruguay</span></div>
-      <div class="match-item"><span class="team-name right">🇪🇸 España</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="H3a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="H3b" placeholder="0"></div><span class="team-name">🇸🇦 Arabia Saudita</span></div>
+      <div class="match-item"><span class="team-name right">🇸🇦 A.Saudita</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="H2a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="H2b" placeholder="0"></div><span class="team-name">🇺🇾 Uruguay</span></div>
+      <div class="match-item"><span class="team-name right">🇪🇸 España</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="H3a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="H3b" placeholder="0"></div><span class="team-name">🇸🇦 A.Saudita</span></div>
       <div class="match-item"><span class="team-name right">🇨🇻 Cabo Verde</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="H4a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="H4b" placeholder="0"></div><span class="team-name">🇺🇾 Uruguay</span></div>
       <div class="match-item"><span class="team-name right">🇪🇸 España</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="H5a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="H5b" placeholder="0"></div><span class="team-name">🇺🇾 Uruguay</span></div>
-      <div class="match-item"><span class="team-name right">🇨🇻 Cabo Verde</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="H6a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="H6b" placeholder="0"></div><span class="team-name">🇸🇦 Arabia Saudita</span></div>
+      <div class="match-item"><span class="team-name right">🇨🇻 Cabo Verde</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="H6a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="H6b" placeholder="0"></div><span class="team-name">🇸🇦 A.Saudita</span></div>
     </div>
-    <div class="group-block">
-      <span class="group-label">GRUPO I — Francia · Senegal · Noruega · Iraq</span>
+    <div class="group-block"><span class="group-label">GRUPO I — Francia · Senegal · Noruega · Iraq</span>
       <div class="match-item"><span class="team-name right">🇫🇷 Francia</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="I1a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="I1b" placeholder="0"></div><span class="team-name">🇸🇳 Senegal</span></div>
       <div class="match-item"><span class="team-name right">🇳🇴 Noruega</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="I2a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="I2b" placeholder="0"></div><span class="team-name">🇮🇶 Iraq</span></div>
       <div class="match-item"><span class="team-name right">🇫🇷 Francia</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="I3a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="I3b" placeholder="0"></div><span class="team-name">🇳🇴 Noruega</span></div>
@@ -197,8 +203,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
       <div class="match-item"><span class="team-name right">🇫🇷 Francia</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="I5a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="I5b" placeholder="0"></div><span class="team-name">🇮🇶 Iraq</span></div>
       <div class="match-item"><span class="team-name right">🇸🇳 Senegal</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="I6a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="I6b" placeholder="0"></div><span class="team-name">🇳🇴 Noruega</span></div>
     </div>
-    <div class="group-block">
-      <span class="group-label">GRUPO J — Argentina · Argelia · Austria · Jordania</span>
+    <div class="group-block"><span class="group-label">GRUPO J — Argentina · Argelia · Austria · Jordania</span>
       <div class="match-item"><span class="team-name right">🇦🇷 Argentina</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="J1a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="J1b" placeholder="0"></div><span class="team-name">🇩🇿 Argelia</span></div>
       <div class="match-item"><span class="team-name right">🇦🇹 Austria</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="J2a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="J2b" placeholder="0"></div><span class="team-name">🇯🇴 Jordania</span></div>
       <div class="match-item"><span class="team-name right">🇦🇷 Argentina</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="J3a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="J3b" placeholder="0"></div><span class="team-name">🇦🇹 Austria</span></div>
@@ -206,8 +211,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
       <div class="match-item"><span class="team-name right">🇦🇷 Argentina</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="J5a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="J5b" placeholder="0"></div><span class="team-name">🇯🇴 Jordania</span></div>
       <div class="match-item"><span class="team-name right">🇩🇿 Argelia</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="J6a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="J6b" placeholder="0"></div><span class="team-name">🇦🇹 Austria</span></div>
     </div>
-    <div class="group-block">
-      <span class="group-label">GRUPO K — Portugal · Colombia · Uzbekistán · DR Congo</span>
+    <div class="group-block"><span class="group-label">GRUPO K — Portugal · Colombia · Uzbekistán · DR Congo</span>
       <div class="match-item"><span class="team-name right">🇵🇹 Portugal</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="K1a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="K1b" placeholder="0"></div><span class="team-name">🇨🇴 Colombia</span></div>
       <div class="match-item"><span class="team-name right">🇺🇿 Uzbekistán</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="K2a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="K2b" placeholder="0"></div><span class="team-name">🇨🇩 DR Congo</span></div>
       <div class="match-item"><span class="team-name right">🇵🇹 Portugal</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="K3a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="K3b" placeholder="0"></div><span class="team-name">🇺🇿 Uzbekistán</span></div>
@@ -215,8 +219,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
       <div class="match-item"><span class="team-name right">🇵🇹 Portugal</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="K5a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="K5b" placeholder="0"></div><span class="team-name">🇨🇩 DR Congo</span></div>
       <div class="match-item"><span class="team-name right">🇨🇴 Colombia</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="K6a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="K6b" placeholder="0"></div><span class="team-name">🇺🇿 Uzbekistán</span></div>
     </div>
-    <div class="group-block">
-      <span class="group-label">GRUPO L — Inglaterra · Croacia · Ghana · Panamá</span>
+    <div class="group-block"><span class="group-label">GRUPO L — Inglaterra · Croacia · Ghana · Panamá</span>
       <div class="match-item"><span class="team-name right">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="L1a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="L1b" placeholder="0"></div><span class="team-name">🇭🇷 Croacia</span></div>
       <div class="match-item"><span class="team-name right">🇬🇭 Ghana</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="L2a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="L2b" placeholder="0"></div><span class="team-name">🇵🇦 Panamá</span></div>
       <div class="match-item"><span class="team-name right">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="L3a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="L3b" placeholder="0"></div><span class="team-name">🇬🇭 Ghana</span></div>
@@ -224,10 +227,8 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
       <div class="match-item"><span class="team-name right">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="L5a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="L5b" placeholder="0"></div><span class="team-name">🇵🇦 Panamá</span></div>
       <div class="match-item"><span class="team-name right">🇭🇷 Croacia</span><div class="score-box"><input class="score-inp" type="number" min="0" max="20" id="L6a" placeholder="0"><span class="vs-sep">-</span><input class="score-inp" type="number" min="0" max="20" id="L6b" placeholder="0"></div><span class="team-name">🇬🇭 Ghana</span></div>
     </div>
-
-    <!-- CAMPEÓN -->
     <div class="card" style="margin-top:16px">
-      <div class="card-title">🏆 ¿Quién será campeón? <span style="font-family:Outfit;font-size:13px;font-weight:500;color:var(--muted)">(+5 pts bonus)</span></div>
+      <div class="card-title">🏆 ¿Quién será campeón? <span style="font-family:Outfit;font-size:13px;font-weight:500;color:var(--muted)">(+5 pts)</span></div>
       <div class="camp-grid">
         <button class="camp-btn" onclick="selCamp(this,'🇲🇽 México')">🇲🇽<br>México</button>
         <button class="camp-btn" onclick="selCamp(this,'🇿🇦 Sudáfrica')">🇿🇦<br>Sudáfrica</button>
@@ -258,7 +259,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
         <button class="camp-btn" onclick="selCamp(this,'🇮🇷 Irán')">🇮🇷<br>Irán</button>
         <button class="camp-btn" onclick="selCamp(this,'🇳🇿 N.Zelanda')">🇳🇿<br>N.Zelanda</button>
         <button class="camp-btn" onclick="selCamp(this,'🇪🇸 España')">🇪🇸<br>España</button>
-        <button class="camp-btn" onclick="selCamp(this,'🇨🇻 Cabo Verde')">🇨🇻<br>C.Verde</button>
+        <button class="camp-btn" onclick="selCamp(this,'🇨🇻 C.Verde')">🇨🇻<br>C.Verde</button>
         <button class="camp-btn" onclick="selCamp(this,'🇸🇦 A.Saudita')">🇸🇦<br>A.Saudita</button>
         <button class="camp-btn" onclick="selCamp(this,'🇺🇾 Uruguay')">🇺🇾<br>Uruguay</button>
         <button class="camp-btn" onclick="selCamp(this,'🇫🇷 Francia')">🇫🇷<br>Francia</button>
@@ -279,12 +280,10 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
         <button class="camp-btn" onclick="selCamp(this,'🇵🇦 Panamá')">🇵🇦<br>Panamá</button>
       </div>
     </div>
-
     <button class="btn-main" id="btn-guardar" onclick="guardar()">Guardar mi quiniela ✓</button>
     <div class="sending" id="sending-msg">⏳ Enviando tu quiniela...</div>
     <div class="alert ok" id="alert-ok">✅ ¡Quiniela registrada! Copia el texto y pégalo en Facebook.</div>
-    <div class="alert err" id="alert-err">❌ Error al enviar. Copia el texto igualmente y avisa al administrador.</div>
-
+    <div class="alert err" id="alert-err">❌ Error de conexión. Tu texto se ha generado igualmente, cópialo y avisa al admin.</div>
     <div class="share-box" id="share-box">
       <div class="share-label">📋 Copia y pega en tu grupo de Facebook</div>
       <div class="share-code" id="share-code"></div>
@@ -294,33 +293,104 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 
   <!-- RANKING -->
   <div id="tab-ranking" class="section">
-    <div style="background:#fff8f0;border:1.5px dashed #FAC775;border-radius:var(--radius);padding:1.25rem;margin-bottom:14px">
-      <p style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#854F0B;margin-bottom:8px">⚙️ Zona admin</p>
-      <p style="font-size:13px;color:#854F0B">Los datos de todos los participantes llegan automáticamente a tu Google Sheets. Consulta la hoja <strong>Quiniela Mundial 2026</strong> para ver nombre, teléfono, campeón y pronósticos de cada uno.</p>
+    <div class="card">
+      <div class="card-title">🏆 Clasificación general</div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:12px" id="ranking-updated">El ranking se actualiza cada vez que el administrador introduce los resultados reales.</p>
+      <div id="ranking-list">
+        <div class="rank-row"><div class="pos-badge p1">1</div><div class="rank-name">— En espera —</div><div style="text-align:right"><div class="rank-pts">0</div><div class="rank-pts-label">puntos</div></div></div>
+        <div class="rank-row"><div class="pos-badge p2">2</div><div class="rank-name">— En espera —</div><div style="text-align:right"><div class="rank-pts">0</div><div class="rank-pts-label">puntos</div></div></div>
+        <div class="rank-row"><div class="pos-badge p3">3</div><div class="rank-name">— En espera —</div><div style="text-align:right"><div class="rank-pts">0</div><div class="rank-pts-label">puntos</div></div></div>
+      </div>
     </div>
-    <div id="ranking-list">
-      <div class="rank-row"><div class="pos-badge p1">1</div><div class="rank-name">— En espera —</div><div style="text-align:right"><div class="rank-pts">0</div><div class="rank-pts-label">puntos</div></div></div>
-      <div class="rank-row"><div class="pos-badge p2">2</div><div class="rank-name">— En espera —</div><div style="text-align:right"><div class="rank-pts">0</div><div class="rank-pts-label">puntos</div></div></div>
-      <div class="rank-row"><div class="pos-badge p3">3</div><div class="rank-name">— En espera —</div><div style="text-align:right"><div class="rank-pts">0</div><div class="rank-pts-label">puntos</div></div></div>
+  </div>
+
+  <!-- ADMIN -->
+  <div id="tab-admin" class="section">
+    <div class="admin-login" id="admin-login">
+      <div style="font-size:40px;margin-bottom:12px">🔐</div>
+      <p style="font-size:15px;font-weight:600;margin-bottom:16px">Zona de administrador</p>
+      <div class="input-group" style="text-align:left;max-width:300px;margin:0 auto 12px">
+        <label>Contraseña</label>
+        <input type="password" id="admin-pass" placeholder="Introduce la contraseña..." onkeydown="if(event.key==='Enter')checkPass()">
+      </div>
+      <button class="btn-main" style="max-width:300px" onclick="checkPass()">Entrar</button>
+      <div class="alert err" id="pass-err" style="max-width:300px;margin:8px auto 0">❌ Contraseña incorrecta</div>
+    </div>
+
+    <div class="admin-panel" id="admin-panel">
+      <div class="admin-header">
+        <h2>⚙️ Panel de resultados</h2>
+        <button class="btn-sec" style="font-size:12px;padding:6px 12px;color:#fff;border-color:rgba(255,255,255,0.3)" onclick="cerrarAdmin()">Salir</button>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Modo de introducción</div>
+        <div class="mode-tabs">
+          <button class="mode-tab active" onclick="setMode('grupo')">📋 Grupo por grupo</button>
+          <button class="mode-tab" onclick="setMode('todos')">📑 Todos a la vez</button>
+        </div>
+
+        <!-- MODO GRUPO POR GRUPO -->
+        <div class="mode-section active" id="mode-grupo">
+          <p style="font-size:13px;color:var(--muted);margin-bottom:12px">Selecciona el grupo y rellena los resultados de los partidos jugados.</p>
+          <div class="group-selector" id="group-selector">
+            <button class="g-btn active" onclick="selGroup('A')">A</button>
+            <button class="g-btn" onclick="selGroup('B')">B</button>
+            <button class="g-btn" onclick="selGroup('C')">C</button>
+            <button class="g-btn" onclick="selGroup('D')">D</button>
+            <button class="g-btn" onclick="selGroup('E')">E</button>
+            <button class="g-btn" onclick="selGroup('F')">F</button>
+            <button class="g-btn" onclick="selGroup('G')">G</button>
+            <button class="g-btn" onclick="selGroup('H')">H</button>
+            <button class="g-btn" onclick="selGroup('I')">I</button>
+            <button class="g-btn" onclick="selGroup('J')">J</button>
+            <button class="g-btn" onclick="selGroup('K')">K</button>
+            <button class="g-btn" onclick="selGroup('L')">L</button>
+          </div>
+          <div id="group-matches"></div>
+          <button class="btn-main" style="margin-top:12px" onclick="guardarResultados()">💾 Guardar y calcular ranking</button>
+          <div class="save-banner" id="save-ok">✅ ¡Resultados guardados! El ranking se ha actualizado.</div>
+        </div>
+
+        <!-- MODO TODOS -->
+        <div class="mode-section" id="mode-todos">
+          <p style="font-size:13px;color:var(--muted);margin-bottom:12px">Introduce todos los resultados conocidos. Deja en blanco los partidos no jugados.</p>
+          <div id="all-matches"></div>
+          <button class="btn-main" style="margin-top:12px" onclick="guardarResultados()">💾 Guardar y calcular ranking</button>
+          <div class="save-banner" id="save-ok2">✅ ¡Resultados guardados! El ranking se ha actualizado.</div>
+        </div>
+      </div>
+
+      <!-- QUINIELAS RECIBIDAS -->
+      <div class="card">
+        <div class="card-title">📋 Quinielas recibidas</div>
+        <p class="quinielas-count" id="q-count">Pega aquí las quinielas de los participantes para calcular puntos.</p>
+        <textarea id="quinielas-raw" style="width:100%;height:200px;padding:10px;border:1.5px solid var(--border);border-radius:10px;font-family:monospace;font-size:12px;background:#fafafa;resize:vertical" placeholder="Pega aquí todas las quinielas copiadas del grupo de Facebook, una debajo de otra..."></textarea>
+        <button class="btn-main" style="margin-top:8px" onclick="calcularRanking()">🏆 Calcular ranking</button>
+      </div>
     </div>
   </div>
 
 </div>
-
 <div class="footer">⚽ Quiniela Mundial 2026 · USA · México · Canadá · 11 jun – 19 jul 2026</div>
 
 <script>
 const SHEETS_URL='https://script.google.com/macros/s/AKfycbz2fF8HQhfJSt-EJl7hfkLwwaWk0YXIemjvcc-HlHWgjgLK7Fzb7GeMnb84rpAD8LK-/exec';
+const ADMIN_PASS='MundialApp26';
 let campeon='';
+let resultados={};
+let currentGroup='A';
+let currentMode='grupo';
+
 const grupos={
-  A:[['🇲🇽 México','🇿🇦 Sudáfrica','A1'],['🇰🇷 Corea del Sur','🇨🇿 Chequia','A2'],['🇲🇽 México','🇰🇷 Corea del Sur','A3'],['🇿🇦 Sudáfrica','🇨🇿 Chequia','A4'],['🇲🇽 México','🇨🇿 Chequia','A5'],['🇿🇦 Sudáfrica','🇰🇷 Corea del Sur','A6']],
+  A:[['🇲🇽 México','🇿🇦 Sudáfrica','A1'],['🇰🇷 Corea Sur','🇨🇿 Chequia','A2'],['🇲🇽 México','🇰🇷 Corea Sur','A3'],['🇿🇦 Sudáfrica','🇨🇿 Chequia','A4'],['🇲🇽 México','🇨🇿 Chequia','A5'],['🇿🇦 Sudáfrica','🇰🇷 Corea Sur','A6']],
   B:[['🇨🇦 Canadá','🇶🇦 Qatar','B1'],['🇨🇭 Suiza','🇧🇦 Bosnia','B2'],['🇨🇦 Canadá','🇨🇭 Suiza','B3'],['🇶🇦 Qatar','🇧🇦 Bosnia','B4'],['🇨🇦 Canadá','🇧🇦 Bosnia','B5'],['🇶🇦 Qatar','🇨🇭 Suiza','B6']],
   C:[['🇧🇷 Brasil','🇲🇦 Marruecos','C1'],['🇭🇹 Haití','🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escocia','C2'],['🇧🇷 Brasil','🇭🇹 Haití','C3'],['🇲🇦 Marruecos','🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escocia','C4'],['🇧🇷 Brasil','🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escocia','C5'],['🇲🇦 Marruecos','🇭🇹 Haití','C6']],
   D:[['🇺🇸 EE.UU.','🇵🇾 Paraguay','D1'],['🇦🇺 Australia','🇹🇷 Turquía','D2'],['🇺🇸 EE.UU.','🇦🇺 Australia','D3'],['🇵🇾 Paraguay','🇹🇷 Turquía','D4'],['🇺🇸 EE.UU.','🇹🇷 Turquía','D5'],['🇵🇾 Paraguay','🇦🇺 Australia','D6']],
   E:[['🇩🇪 Alemania','🇨🇼 Curazao','E1'],['🇨🇮 C.Marfil','🇪🇨 Ecuador','E2'],['🇩🇪 Alemania','🇨🇮 C.Marfil','E3'],['🇨🇼 Curazao','🇪🇨 Ecuador','E4'],['🇩🇪 Alemania','🇪🇨 Ecuador','E5'],['🇨🇼 Curazao','🇨🇮 C.Marfil','E6']],
   F:[['🇳🇱 P.Bajos','🇯🇵 Japón','F1'],['🇹🇳 Túnez','🇸🇪 Suecia','F2'],['🇳🇱 P.Bajos','🇹🇳 Túnez','F3'],['🇯🇵 Japón','🇸🇪 Suecia','F4'],['🇳🇱 P.Bajos','🇸🇪 Suecia','F5'],['🇯🇵 Japón','🇹🇳 Túnez','F6']],
   G:[['🇧🇪 Bélgica','🇪🇬 Egipto','G1'],['🇮🇷 Irán','🇳🇿 N.Zelanda','G2'],['🇧🇪 Bélgica','🇮🇷 Irán','G3'],['🇪🇬 Egipto','🇳🇿 N.Zelanda','G4'],['🇧🇪 Bélgica','🇳🇿 N.Zelanda','G5'],['🇪🇬 Egipto','🇮🇷 Irán','G6']],
-  H:[['🇪🇸 España','🇨🇻 Cabo Verde','H1'],['🇸🇦 A.Saudita','🇺🇾 Uruguay','H2'],['🇪🇸 España','🇸🇦 A.Saudita','H3'],['🇨🇻 Cabo Verde','🇺🇾 Uruguay','H4'],['🇪🇸 España','🇺🇾 Uruguay','H5'],['🇨🇻 Cabo Verde','🇸🇦 A.Saudita','H6']],
+  H:[['🇪🇸 España','🇨🇻 C.Verde','H1'],['🇸🇦 A.Saudita','🇺🇾 Uruguay','H2'],['🇪🇸 España','🇸🇦 A.Saudita','H3'],['🇨🇻 C.Verde','🇺🇾 Uruguay','H4'],['🇪🇸 España','🇺🇾 Uruguay','H5'],['🇨🇻 C.Verde','🇸🇦 A.Saudita','H6']],
   I:[['🇫🇷 Francia','🇸🇳 Senegal','I1'],['🇳🇴 Noruega','🇮🇶 Iraq','I2'],['🇫🇷 Francia','🇳🇴 Noruega','I3'],['🇸🇳 Senegal','🇮🇶 Iraq','I4'],['🇫🇷 Francia','🇮🇶 Iraq','I5'],['🇸🇳 Senegal','🇳🇴 Noruega','I6']],
   J:[['🇦🇷 Argentina','🇩🇿 Argelia','J1'],['🇦🇹 Austria','🇯🇴 Jordania','J2'],['🇦🇷 Argentina','🇦🇹 Austria','J3'],['🇩🇿 Argelia','🇯🇴 Jordania','J4'],['🇦🇷 Argentina','🇯🇴 Jordania','J5'],['🇩🇿 Argelia','🇦🇹 Austria','J6']],
   K:[['🇵🇹 Portugal','🇨🇴 Colombia','K1'],['🇺🇿 Uzbekistán','🇨🇩 DR Congo','K2'],['🇵🇹 Portugal','🇺🇿 Uzbekistán','K3'],['🇨🇴 Colombia','🇨🇩 DR Congo','K4'],['🇵🇹 Portugal','🇨🇩 DR Congo','K5'],['🇨🇴 Colombia','🇺🇿 Uzbekistán','K6']],
@@ -328,63 +398,161 @@ const grupos={
 };
 
 function showTab(id){
-  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',['reglas','quiniela','ranking'][i]===id));
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',['reglas','quiniela','ranking','admin'][i]===id));
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
   document.getElementById('tab-'+id).classList.add('active');
   window.scrollTo({top:0,behavior:'smooth'});
+  if(id==='ranking') renderRanking();
 }
-function selCamp(el,name){
-  document.querySelectorAll('.camp-btn').forEach(b=>b.classList.remove('sel'));
-  el.classList.add('sel');campeon=name;
-}
+
+function selCamp(el,name){document.querySelectorAll('.camp-btn').forEach(b=>b.classList.remove('sel'));el.classList.add('sel');campeon=name;}
+
 function guardar(){
   const name=document.getElementById('player-name').value.trim();
   const phone=document.getElementById('player-phone').value.trim();
   if(!name){alert('✍️ Escribe tu nombre');return;}
-  if(!phone){alert('📱 Escribe tu teléfono o WhatsApp');return;}
+  if(!phone){alert('📱 Escribe tu teléfono');return;}
   if(!campeon){alert('🏆 Elige tu campeón');return;}
-
-  let texto='⚽ QUINIELA MUNDIAL 2026\n';
-  texto+='👤 '+name+' | 📱 '+phone+'\n';
-  texto+='─'.repeat(30)+'\n';
-  for(const[g,partidos] of Object.entries(grupos)){
+  let texto='⚽ QUINIELA MUNDIAL 2026\n👤 '+name+' | 📱 '+phone+'\n'+'─'.repeat(30)+'\n';
+  for(const[g,p] of Object.entries(grupos)){
     texto+='[ GRUPO '+g+' ]\n';
-    partidos.forEach(([a,b,id])=>{
-      const va=document.getElementById(id+'a').value||'?';
-      const vb=document.getElementById(id+'b').value||'?';
-      texto+=a+' '+va+' – '+vb+' '+b+'\n';
-    });
+    p.forEach(([a,b,id])=>{const va=document.getElementById(id+'a').value||'?';const vb=document.getElementById(id+'b').value||'?';texto+=a+' '+va+' – '+vb+' '+b+'\n';});
   }
   texto+='─'.repeat(30)+'\n🏆 Campeón: '+campeon+'\n✅ Quiniela Mundial 2026';
-
   document.getElementById('share-code').textContent=texto;
   document.getElementById('share-box').style.display='block';
   document.getElementById('btn-guardar').disabled=true;
   document.getElementById('sending-msg').style.display='block';
+  fetch(SHEETS_URL,{method:'POST',body:JSON.stringify({nombre:name,telefono:phone,campeon:campeon,quiniela:texto})})
+    .then(r=>r.json()).then(d=>{document.getElementById('sending-msg').style.display='none';document.getElementById(d.ok?'alert-ok':'alert-err').style.display='block';})
+    .catch(()=>{document.getElementById('sending-msg').style.display='none';document.getElementById('alert-err').style.display='block';})
+    .finally(()=>{document.getElementById('btn-guardar').disabled=false;document.getElementById('share-box').scrollIntoView({behavior:'smooth',block:'start'});});
+}
 
-  fetch(SHEETS_URL,{
-    method:'POST',
-    body:JSON.stringify({nombre:name,telefono:phone,campeon:campeon,quiniela:texto})
-  })
-  .then(r=>r.json())
-  .then(d=>{
-    document.getElementById('sending-msg').style.display='none';
-    document.getElementById(d.ok?'alert-ok':'alert-err').style.display='block';
-  })
-  .catch(()=>{
-    document.getElementById('sending-msg').style.display='none';
-    document.getElementById('alert-err').style.display='block';
-  })
-  .finally(()=>{
-    document.getElementById('btn-guardar').disabled=false;
-    document.getElementById('share-box').scrollIntoView({behavior:'smooth',block:'start'});
+function copiar(){navigator.clipboard.writeText(document.getElementById('share-code').textContent).then(()=>alert('¡Copiado! Pégalo en Facebook 🎉')).catch(()=>alert('Selecciona el texto manualmente'));}
+
+// ADMIN
+function checkPass(){
+  const p=document.getElementById('admin-pass').value;
+  if(p===ADMIN_PASS){document.getElementById('admin-login').style.display='none';document.getElementById('admin-panel').style.display='block';renderAdminGroups();renderAllMatches();}
+  else{document.getElementById('pass-err').style.display='block';}
+}
+function cerrarAdmin(){document.getElementById('admin-login').style.display='block';document.getElementById('admin-panel').style.display='none';document.getElementById('admin-pass').value='';document.getElementById('pass-err').style.display='none';}
+
+function setMode(mode){
+  currentMode=mode;
+  document.querySelectorAll('.mode-tab').forEach((t,i)=>t.classList.toggle('active',['grupo','todos'][i]===mode));
+  document.querySelectorAll('.mode-section').forEach((s,i)=>s.classList.toggle('active',['mode-grupo','mode-todos'][i]==='mode-'+mode));
+}
+
+function selGroup(g){
+  currentGroup=g;
+  document.querySelectorAll('.g-btn').forEach((b,i)=>b.classList.toggle('active','ABCDEFGHIJKL'[i]===g));
+  renderAdminGroups();
+}
+
+function renderAdminGroups(){
+  const c=document.getElementById('group-matches');
+  const partidos=grupos[currentGroup];
+  c.innerHTML='<div class="group-block"><span class="group-label">GRUPO '+currentGroup+'</span>'+
+    partidos.map(([a,b,id])=>{
+      const ra=resultados[id+'a']??'';const rb=resultados[id+'b']??'';
+      return '<div class="result-item"><span class="team-name right" style="font-size:12px">'+a+'</span><div class="score-box"><input class="result-inp'+(ra!==''?' filled':'')+'" type="number" min="0" max="20" id="r'+id+'a" value="'+ra+'" placeholder="?" oninput="saveRes(\''+id+'a\',this)"><span class="vs-sep">-</span><input class="result-inp'+(rb!==''?' filled':'')+'" type="number" min="0" max="20" id="r'+id+'b" value="'+rb+'" placeholder="?" oninput="saveRes(\''+id+'b\',this)"></div><span class="team-name" style="font-size:12px">'+b+'</span></div>';
+    }).join('')+'</div>';
+}
+
+function renderAllMatches(){
+  const c=document.getElementById('all-matches');
+  c.innerHTML=Object.entries(grupos).map(([g,partidos])=>
+    '<div class="group-block"><span class="group-label">GRUPO '+g+'</span>'+
+    partidos.map(([a,b,id])=>{
+      const ra=resultados[id+'a']??'';const rb=resultados[id+'b']??'';
+      return '<div class="result-item"><span class="team-name right" style="font-size:12px">'+a+'</span><div class="score-box"><input class="result-inp'+(ra!==''?' filled':'')+'" type="number" min="0" max="20" id="ra'+id+'a" value="'+ra+'" placeholder="?" oninput="saveRes(\''+id+'a\',this)"><span class="vs-sep">-</span><input class="result-inp'+(rb!==''?' filled':'')+'" type="number" min="0" max="20" id="ra'+id+'b" value="'+rb+'" placeholder="?" oninput="saveRes(\''+id+'b\',this)"></div><span class="team-name" style="font-size:12px">'+b+'</span></div>';
+    }).join('')+'</div>'
+  ).join('');
+}
+
+function saveRes(key,el){
+  const v=el.value;
+  if(v!==''){resultados[key]=parseInt(v);el.classList.add('filled');}
+  else{delete resultados[key];el.classList.remove('filled');}
+}
+
+function guardarResultados(){
+  localStorage.setItem('resultados_mundial26',JSON.stringify(resultados));
+  const banner=currentMode==='grupo'?'save-ok':'save-ok2';
+  document.getElementById(banner).style.display='block';
+  setTimeout(()=>document.getElementById(banner).style.display='none',3000);
+  // marcar grupos completados
+  Object.keys(grupos).forEach((g,i)=>{
+    const completo=grupos[g].every(([a,b,id])=>resultados[id+'a']!==undefined&&resultados[id+'b']!==undefined);
+    const btn=document.querySelectorAll('.g-btn')[i];
+    if(completo&&g!==currentGroup)btn.classList.add('done');
   });
 }
-function copiar(){
-  navigator.clipboard.writeText(document.getElementById('share-code').textContent)
-    .then(()=>alert('¡Copiado! Pégalo en Facebook 🎉'))
-    .catch(()=>alert('Selecciona el texto manualmente y cópialo'));
+
+function calcularRanking(){
+  const raw=document.getElementById('quinielas-raw').value.trim();
+  if(!raw){alert('Pega las quinielas primero');return;}
+  const bloques=raw.split('⚽ QUINIELA MUNDIAL 2026').filter(b=>b.trim());
+  const ranking=[];
+  bloques.forEach(bloque=>{
+    const lineas=bloque.trim().split('\n');
+    const cabecera=lineas[0]||'';
+    const nombre=cabecera.includes('👤')?cabecera.split('👤')[1].split('|')[0].trim():'Desconocido';
+    let puntos=0;
+    // campeón
+    const campLine=lineas.find(l=>l.includes('🏆 Campeón:'));
+    if(campLine){
+      const campQ=campLine.replace('🏆 Campeón:','').replace('✅ Quiniela Mundial 2026','').trim();
+      // buscar campeón real en resultados — de momento solo suma si existe marcador en localStorage
+      // para el campeon necesitamos que el admin lo haya guardado
+      const campReal=localStorage.getItem('campeon_real');
+      if(campReal&&campQ.includes(campReal.replace(/[🇦-🇿]/g,'').trim()))puntos+=5;
+    }
+    // partidos
+    lineas.forEach(l=>{
+      const match=l.match(/(\d+) – (\d+)/);
+      if(match){
+        // encontrar id del partido
+        for(const[g,ps] of Object.entries(grupos)){
+          ps.forEach(([a,b,id])=>{
+            if(l.includes(a.replace(/[^\w\s]/g,'').trim().substring(0,4))||l.includes(b.replace(/[^\w\s]/g,'').trim().substring(0,4))){
+              const qa=parseInt(match[1]);const qb=parseInt(match[2]);
+              const ra=resultados[id+'a'];const rb=resultados[id+'b'];
+              if(ra!==undefined&&rb!==undefined){
+                if(qa===ra&&qb===rb)puntos+=3;
+                else if((qa>qb&&ra>rb)||(qa<qb&&ra<rb)||(qa===qb&&ra===rb))puntos+=1;
+              }
+            }
+          });
+        }
+      }
+    });
+    ranking.push({nombre,puntos});
+  });
+  ranking.sort((a,b)=>b.puntos-a.puntos);
+  localStorage.setItem('ranking_mundial26',JSON.stringify(ranking));
+  localStorage.setItem('ranking_updated',new Date().toLocaleString('es-ES'));
+  renderRanking();
+  alert('✅ Ranking calculado con '+ranking.length+' participantes. Ve a la pestaña Ranking para verlo.');
 }
+
+function renderRanking(){
+  const saved=localStorage.getItem('ranking_mundial26');
+  const updated=localStorage.getItem('ranking_updated');
+  if(!saved)return;
+  const ranking=JSON.parse(saved);
+  if(updated)document.getElementById('ranking-updated').textContent='Última actualización: '+updated;
+  const badges=['p1','p2','p3'];
+  document.getElementById('ranking-list').innerHTML=ranking.map((p,i)=>
+    '<div class="rank-row"><div class="pos-badge '+(badges[i]||'pn')+'">'+(i+1)+'</div><div class="rank-name">'+p.nombre+'</div><div style="text-align:right"><div class="rank-pts">'+p.puntos+'</div><div class="rank-pts-label">puntos</div></div></div>'
+  ).join('');
+}
+
+// cargar resultados guardados
+try{const s=localStorage.getItem('resultados_mundial26');if(s)resultados=JSON.parse(s);}catch(e){}
+renderRanking();
 </script>
 </body>
 </html>
