@@ -508,7 +508,9 @@ function calcularRanking(){
       // buscar campeón real en resultados — de momento solo suma si existe marcador en localStorage
       // para el campeon necesitamos que el admin lo haya guardado
       const campReal=localStorage.getItem('campeon_real');
-      if(campReal&&campQ.includes(campReal.replace(/[🇦-🇿]/g,'').trim()))puntos+=5;
+      const campRealClean=campReal.replace(/[\u{1F1E0}-\u{1F1FF}]/gu,'').trim();
+      const campQClean=campQ.replace(/[\u{1F1E0}-\u{1F1FF}]/gu,'').trim();
+      if(campReal&&campQClean.includes(campRealClean))puntos+=5;
     }
     // partidos
     lineas.forEach(l=>{
@@ -517,7 +519,9 @@ function calcularRanking(){
         // encontrar id del partido
         for(const[g,ps] of Object.entries(grupos)){
           ps.forEach(([a,b,id])=>{
-            if(l.includes(a.replace(/[^\w\s]/g,'').trim().substring(0,4))||l.includes(b.replace(/[^\w\s]/g,'').trim().substring(0,4))){
+            const aClean=a.replace(/[^\w\s]/gu,'').trim().substring(0,4);
+            const bClean=b.replace(/[^\w\s]/gu,'').trim().substring(0,4);
+            if(l.includes(aClean)||l.includes(bClean)){
               const qa=parseInt(match[1]);const qb=parseInt(match[2]);
               const ra=resultados[id+'a'];const rb=resultados[id+'b'];
               if(ra!==undefined&&rb!==undefined){
